@@ -27,7 +27,7 @@
 
 ## Atividade 1 — Primeira captura (`http://example.com`)
 
-**Captura de tela:** `<img width="1918" height="1069" alt="image" src="https://github.com/user-attachments/assets/bc84069a-cc5a-48cc-a02b-985308120d9a" />`
+**Captura de tela:** <img width="1918" height="1069" alt="image" src="https://github.com/user-attachments/assets/bc84069a-cc5a-48cc-a02b-985308120d9a" />
 
 **Request-line enviada:**
 
@@ -64,7 +64,7 @@ Cabeçalhos:
 
 ## Atividade 2 — Anatomia de um GET (`http://httpbin.org/get?...`)
 
-**Captura de tela:** `<img width="1919" height="1069" alt="image" src="https://github.com/user-attachments/assets/cddc4e05-9374-4010-802e-c1e4f8ad49ef" />`
+**Captura de tela:** <img width="1919" height="1069" alt="image" src="https://github.com/user-attachments/assets/cddc4e05-9374-4010-802e-c1e4f8ad49ef" />
 
 **Request-line completa:**
 
@@ -131,7 +131,7 @@ GET http://httpbin.org/forms/post HTTP/1.1
 
 ## Atividade 3 — POST e envio de formulário (`http://httpbin.org/forms/post` → `/post`)
 
-**Captura de tela:** `<img width="1918" height="1071" alt="image" src="https://github.com/user-attachments/assets/6215eec1-f7de-4948-88a3-818c137db38e" />`
+**Captura de tela:** <img width="1918" height="1071" alt="image" src="https://github.com/user-attachments/assets/6215eec1-f7de-4948-88a3-818c137db38e" />
 
 **Request-line do POST:**
 
@@ -215,7 +215,7 @@ POST http://httpbin.org/post HTTP/1.1
 ### Pergunta 3.3 — Composer
 > Envie manualmente via Composer um `POST` para `http://httpbin.org/post` com JSON. Registre a resposta. Qual campo do JSON confirma que o servidor interpretou o JSON?
 
-**Captura de tela:** `<img width="1917" height="1079" alt="image" src="https://github.com/user-attachments/assets/1827ef7a-4d03-4eb2-8526-50156dc22e81" />`
+**Captura de tela:** <img width="1917" height="1079" alt="image" src="https://github.com/user-attachments/assets/1827ef7a-4d03-4eb2-8526-50156dc22e81" />
 
 **Response JSON (trecho relevante):**
 
