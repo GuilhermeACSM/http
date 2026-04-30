@@ -27,84 +27,103 @@
 
 ## Atividade 1 — Primeira captura (`http://example.com`)
 
-**Captura de tela:** `evidencias/atv1_sessao.png`
+**Captura de tela:** `<img width="1918" height="1069" alt="image" src="https://github.com/user-attachments/assets/bc84069a-cc5a-48cc-a02b-985308120d9a" />`
 
 **Request-line enviada:**
 
 ```http
-[colar aqui a linha inicial do request, ex: GET / HTTP/1.1]
+GET http://www.textfiles.com HTTP/1.1
 ```
 
 **Status-line recebida:**
 
 ```http
-[colar aqui, ex: HTTP/1.1 200 OK]
+HTTP/1.1 200 OK
 ```
 
 ### Pergunta 1.1
 > Quantos cabeçalhos o navegador enviou no request? Liste-os.
 
 **Resposta:**
-[número total]
+5 cabeçalhos
 
 Cabeçalhos:
-- [cabeçalho 1]
-- [cabeçalho 2]
-- ...
+- Content-Type: text/html;charset=utf-8
+- Content-Length: 7126
+- Date: Thu, 30 Apr 2026 14:36:34 GMT
+- Keep-Alive: timeout=60
+- Connection: keep-alive
+
 
 ### Pergunta 1.2
 > Qual foi o `Content-Length` da resposta? Se ele não apareceu, registre `Transfer-Encoding`, versão do protocolo ou outro indício observado. O corpo retornado é HTML, texto puro, JSON ou binário? Como você descobriu?
 
-**Resposta:** [...]
+**Resposta:** Content-Length: 7126. HTML, descobri indo no TextView do Fiddler Classic.
 
 ---
 
 ## Atividade 2 — Anatomia de um GET (`http://httpbin.org/get?...`)
 
-**Captura de tela:** `evidencias/atv2_raw.png`
+**Captura de tela:** `<img width="1919" height="1069" alt="image" src="https://github.com/user-attachments/assets/cddc4e05-9374-4010-802e-c1e4f8ad49ef" />`
 
 **Request-line completa:**
 
 ```http
-[colar aqui]
+GET http://httpbin.org/forms/post HTTP/1.1
 ```
 
 **Cabeçalhos-chave capturados:**
 
 | Cabeçalho    | Valor                    |
 |--------------|--------------------------|
-| `Host`       | [...]                    |
-| `User-Agent` | [...]                    |
-| `Accept`     | [...]                    |
+| `Host`       | httpbin.org |
+| `User-Agent` | Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:148.0) Gecko/20100101 Firefox/148.0 |
+| `Accept`     | text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8 |
 
 **Campos do JSON de resposta:**
 
 ```json
 {
-  "args":    [colar valor],
-  "headers": [colar valor resumido],
-  "origin":  [colar valor]
+  "args": {
+    "aluno": "GuilhermeAugustoCorreaSalgadoMoreira", 
+    "curso": "redes"
+  }, 
+  "headers": {
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", 
+    "Accept-Encoding": "gzip, deflate", 
+    "Accept-Language": "en-US,en;q=0.9", 
+    "Cache-Control": "no-cache", 
+    "Host": "httpbin.org", 
+    "Pragma": "no-cache", 
+    "Priority": "u=0, i", 
+    "Upgrade-Insecure-Requests": "1", 
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:148.0) Gecko/20100101 Firefox/148.0", 
+    "X-Amzn-Trace-Id": "Root=1-69f3689d-43dd15612ada4cf910c7ba47"
+  }, 
+  "origin": "187.58.19.47", 
+  "url": "http://httpbin.org/get?aluno=GuilhermeAugustoCorreaSalgadoMoreira&curso=redes"
 }
+
 ```
 
 ### Pergunta 2.1
 > O valor do campo `origin` corresponde a qual elemento da rede? Por que normalmente não é o IP local?
 
-**Resposta:** [...]
+**Resposta:** Corresponde ao IP público. Pois é devido ao uso de NAT pelo roteador ou provedor de internet.
 
 ### Pergunta 2.2
 > Compare o `User-Agent` enviado com o que aparece no JSON da resposta. Coincidem?
 
-**Resposta:** [...]
+**Resposta:** Sim, coincidem.
 
 ### Pergunta 2.3
 > Em `http://httpbin.org/headers`, liste até três cabeçalhos que o servidor vê mas **não aparecem** no Raw do request. De onde vêm? Se não encontrar três, explique por que o resultado pode variar.
 
-**Resposta:**
+**Resposta:** Apenas um cabeçalho extra é visível em relação ao que o navegador enviou originalmente: X-Amzn-Trace-Id. O número de cabeçalhos extras depende inteiramente de quais e quantos intermediários existem no caminho entre computador e o servidor final.
 
 | Cabeçalho visto pelo servidor | Origem provável | Observação |
 |-------------------------------|-----------------|------------|
-| [...]                         | [...]           | [...]      |
+| "X-Amzn-Trace-Id": "Root=1-69f3689d-43dd15612ada4cf910c7ba47" | Infraestrutura da AWS | o site é hospedado pela AWS. |
 | [...]                         | [...]           | [...]      |
 | [...]                         | [...]           | [...]      |
 
@@ -112,59 +131,99 @@ Cabeçalhos:
 
 ## Atividade 3 — POST e envio de formulário (`http://httpbin.org/forms/post` → `/post`)
 
-**Captura de tela:** `evidencias/atv3_post_raw.png`
+**Captura de tela:** `<img width="1918" height="1071" alt="image" src="https://github.com/user-attachments/assets/6215eec1-f7de-4948-88a3-818c137db38e" />`
 
 **Request-line do POST:**
 
 ```http
-[colar aqui]
+POST http://httpbin.org/post HTTP/1.1
 ```
 
 **Cabeçalhos do request:**
 
 | Cabeçalho        | Valor |
 |------------------|-------|
-| `Content-Type`   | [...] |
-| `Content-Length` | [...] |
+| `Content-Type`   | "application/x-www-form-urlencoded" |
+| `Content-Length` | "160" |
 
 **Corpo completo do request:**
 
 ```
-[colar aqui o body enviado]
+{
+  "args": {}, 
+  "data": "", 
+  "files": {}, 
+  "form": {
+    "comments": "entregar no sindico", 
+    "custemail": "asdasdasd@gmail.com", 
+    "custname": "Gulherme", 
+    "custtel": "111111111111111", 
+    "delivery": "16:30", 
+    "size": "medium", 
+    "topping": [
+      "bacon", 
+      "cheese"
+    ]
+  }, 
+  "headers": {
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", 
+    "Accept-Encoding": "gzip, deflate", 
+    "Accept-Language": "en-US,en;q=0.9", 
+    "Content-Length": "160", 
+    "Content-Type": "application/x-www-form-urlencoded", 
+    "Host": "httpbin.org", 
+    "Origin": "http://httpbin.org", 
+    "Priority": "u=0, i", 
+    "Referer": "http://httpbin.org/forms/post", 
+    "Upgrade-Insecure-Requests": "1", 
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:148.0) Gecko/20100101 Firefox/148.0", 
+    "X-Amzn-Trace-Id": "Root=1-69f36f7d-65dfe10a1d6792eb65130c74"
+  }, 
+  "json": null, 
+  "origin": "187.58.19.47", 
+  "url": "http://httpbin.org/post"
+}
 ```
 
 **Trecho do JSON de resposta (campo `form`):**
 
 ```json
 "form": {
-  [colar aqui]
-}
+    "comments": "entregar no sindico", 
+    "custemail": "asdasdasd@gmail.com", 
+    "custname": "Gulherme", 
+    "custtel": "111111111111111", 
+    "delivery": "16:30", 
+    "size": "medium", 
+    "topping": [
+      "bacon", 
+      "cheese"
+    ]
+  }
 ```
 
 ### Pergunta 3.1
 > Qual o formato do corpo? Como esse formato codifica caracteres especiais (espaço, acentos)?
 
-**Resposta:** [...]
+**Resposta:** "application/x-www-form-urlencoded". Funciona através de Percent-enconding (URL enconding).
 
 ### Pergunta 3.2
 > Comparando **Request → WebForms** e **Request → Raw**: qual das duas corresponde literalmente aos bytes enviados no socket TCP?
 
-**Resposta:** [...]
+**Resposta:** Request -> **Request → Raw**
 
 ### Pergunta 3.3 — Composer
 > Envie manualmente via Composer um `POST` para `http://httpbin.org/post` com JSON. Registre a resposta. Qual campo do JSON confirma que o servidor interpretou o JSON?
 
-**Captura de tela:** `evidencias/atv3_composer.png`
+**Captura de tela:** `<img width="1917" height="1079" alt="image" src="https://github.com/user-attachments/assets/1827ef7a-4d03-4eb2-8526-50156dc22e81" />`
 
 **Response JSON (trecho relevante):**
 
 ```json
-{
-  [colar aqui]
-}
+{"protocolo":"HTTP","versao":"1.1"}
 ```
 
-**Resposta:** [...]
+**Resposta:** É o campo "json"
 
 ---
 
