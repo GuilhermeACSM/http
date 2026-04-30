@@ -123,7 +123,7 @@ GET http://httpbin.org/forms/post HTTP/1.1
 
 | Cabeçalho visto pelo servidor | Origem provável | Observação |
 |-------------------------------|-----------------|------------|
-| "X-Amzn-Trace-Id": "Root=1-69f3689d-43dd15612ada4cf910c7ba47" | Infraestrutura da AWS | o site é hospedado pela AWS. |
+| "X-Amzn-Trace-Id": "Root=1-69f3689d-43dd15612ada4cf910c7ba47" | Infraestrutura da AWS | O site é hospedado pela AWS. |
 | [...]                         | [...]           | [...]      |
 | [...]                         | [...]           | [...]      |
 
