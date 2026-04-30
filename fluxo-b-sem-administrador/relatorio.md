@@ -12,16 +12,16 @@
 
 | Campo       | Valor                  |
 |-------------|------------------------|
-| Nome        | [seu nome completo]    |
-| RA          | [seu RA]               |
+| Nome        | Anna Clara Sbrama dos Santos |
+| Nome        | Guilherme Augusto Corrêa Salgado Moreira |
 | Disciplina  | Redes de Computadores  |
-| Turma       | [sua turma]            |
-| Data        | [data da realização]   |
+| Turma       | Sistemas para Internet 2° Ciclo |
+| Data        | 30/04/2026   |
 | Fluxo       | **B — Aluno sem privilégio de administrador** |
-| SO utilizado | [Windows 11 / Ubuntu 22.04 / macOS ...] |
-| Ferramenta de proxy | [Fiddler Classic per-user / mitmproxy / HTTP Toolkit / ...] |
-| Navegador(es)       | [Chrome 124 / Firefox 125 / ...] |
-| HTTPS-First Mode / HTTPS-Only desabilitado? | [sim / não] |
+| SO utilizado | Windows 11 |
+| Ferramenta de proxy | Fiddler Classic per-user |
+| Navegador(es)       | Firefox 125 |
+| HTTPS-First Mode / HTTPS-Only desabilitado? | sim |
 
 ---
 
