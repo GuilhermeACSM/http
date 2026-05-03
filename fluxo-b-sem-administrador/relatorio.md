@@ -327,32 +327,32 @@ O papel do HSTS (HTTP Strict Transport Security) é proteger os usuários contra
 ### Pergunta 6.1
 > Que método HTTP aparece na sessão do `https://httpbin.org/get`? O que ele faz e por que existe?
 
-**Resposta:** [...]
+**Resposta:** O método que aparece é o CONNECT. Ele existe para permitir que o cliente solicite ao proxy a criação de um túnel TCP bidirecional direto com o servidor de destino (na porta 443). Uma vez que esse túnel é estabelecido (com a resposta 200 Connection Established), o proxy para de ler os cabeçalhos HTTP e passa a apenas repassar os bytes criptografados de um lado para o outro, sem saber o conteúdo da comunicação.
 
 ### Pergunta 6.2
 > Tabela comparativa dos campos visíveis ao Fiddler em cada caso:
 
 | Campo                          | Visível em HTTP? | Visível em HTTPS (sem decriptação)? |
 |--------------------------------|------------------|-------------------------------------|
-| Método                         | [...]            | [...]                               |
-| URL completa (path + query)    | [...]            | [...]                               |
-| Cabeçalhos de request          | [...]            | [...]                               |
-| Corpo de request               | [...]            | [...]                               |
-| Status code                    | [...]            | [...]                               |
-| Cabeçalhos de response         | [...]            | [...]                               |
-| Corpo de response              | [...]            | [...]                               |
-| Host (via SNI, no `CONNECT`)   | [...]            | [...]                               |
-| IP e porta de destino          | [...]            | [...]                               |
+| Método                         | Sim              | Não (apenas o método CONNECT inicial) |
+| URL completa (path + query)    | Sim              | Não                                   |
+| Cabeçalhos de request          | Sim              | Não                                   |
+| Corpo de request               | Sim              | Não                                   |
+| Status code                    | Sim              | Não (apenas o 200 Connection Established do túnel) |
+| Cabeçalhos de response         | Sim              | Não                                   |
+| Corpo de response              | Sim              | Não (apenas bytes cifrados/ilegíveis) |
+| Host (via SNI, no `CONNECT`)   | Sim              | Sim                                   |
+| IP e porta de destino          | Sim              | Sim                                   |
 
 ### Pergunta 6.3 (teórica)
 > O que você **veria** no Fiddler se tivesse privilégio de administrador e pudesse habilitar *Decrypt HTTPS traffic*? Indique telas/abas e justifique por que essa inspeção exige a instalação de um certificado raiz.
 
-**Resposta:** [...]
+**Resposta:** Veríamos o tráfego HTTPS em texto claro, exatamente como ocorre no HTTP puro. A URL completa e os cabeçalhos apareceriam legíveis na aba Inspectors → Raw, e o corpo das requisições/respostas ficaria visível nas abas Response → JSON / TextView. Essa inspeção exige a instalação de um certificado raiz porque o Fiddler atua como um Man-in-the-Middle (MITM), interceptando a conexão e emitindo certificados "falsos" para cada site visitado. Para que o navegador aceite esses certificados falsos sem bloquear a navegação, o certificado raiz do Fiddler precisa ser explicitamente adicionado ao armazenamento de confiança do sistema operacional.
 
 ### Pergunta 6.4
 > Por que a técnica de decriptação dos *debugging proxies* **não** funcionaria contra um usuário se um atacante a tentasse sem instalar o certificado?
 
-**Resposta:** [...]
+**Resposta:** Porque a criptografia HTTPS baseia-se em uma cadeia de confiança. Sem a "cooperação do usuário" (que é a instalação voluntária do certificado raiz do proxy/atacante na máquina), o ataque falha. Se um atacante tentar interceptar a conexão e enviar seus certificados "falsos" sem essa raiz de confiança instalada, o navegador da vítima detectará imediatamente que o certificado não foi emitido por uma Autoridade Certificadora confiável e bloqueará o acesso à página exibindo um alerta severo de segurança, impedindo o vazamento de dados.
 
 ---
 
