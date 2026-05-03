@@ -318,8 +318,11 @@ O papel do HSTS (HTTP Strict Transport Security) é proteger os usuários contra
 
 ## Atividade 6 — HTTP vs HTTPS (análise sem decriptação)
 
-**Captura de tela HTTP (`neverssl.com`):** `evidencias/atv6_http.png`
-**Captura de tela HTTPS (`https://httpbin.org/get`, apenas CONNECT):** `evidencias/atv6_https.png`
+**Captura de tela HTTP (`neverssl.com`):**
+<img width="1910" height="1074" alt="neverssl.com" src="https://github.com/user-attachments/assets/1f17ab5d-0f7a-47a8-955f-267c6a7a60f1" /><br>
+
+**Captura de tela HTTPS (`https://httpbin.org/get`, apenas CONNECT):**
+<img width="1919" height="1079" alt="httpbin.org/get" src="https://github.com/user-attachments/assets/e6713213-d689-46a1-9e6e-c886815ff603" /><br>
 
 ### Pergunta 6.1
 > Que método HTTP aparece na sessão do `https://httpbin.org/get`? O que ele faz e por que existe?
