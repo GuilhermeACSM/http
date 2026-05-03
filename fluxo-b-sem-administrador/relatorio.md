@@ -230,19 +230,19 @@ POST http://httpbin.org/post HTTP/1.1
 ## Atividade 4 — Catálogo de status codes (`http://httpbin.org/...`)
 
 **Captura de tela (lista do Fiddler com as 7 sessões):** 
-<img width="1919" height="606" alt="Evidência 1 método GET status 200" src="https://github.com/user-attachments/assets/491086e8-d05a-4d16-9180-1d378434738a" />  
+<img width="1919" height="606" alt="Evidência 1 método GET status 200" src="https://github.com/user-attachments/assets/491086e8-d05a-4d16-9180-1d378434738a" /> <br> 
 
-<img width="1346" height="567" alt="Evidência 2 método GET status 301" src="https://github.com/user-attachments/assets/281e6798-5e38-4054-86ab-863eecf0882a" />  
+<img width="1346" height="567" alt="Evidência 2 método GET status 301" src="https://github.com/user-attachments/assets/281e6798-5e38-4054-86ab-863eecf0882a" /> <br>  
 
-<img width="1170" height="503" alt="Evidência 3 método GET status 404" src="https://github.com/user-attachments/assets/cc7c2e44-7ab6-4d6b-9283-fdc7ae777a15" />  
+<img width="1170" height="503" alt="Evidência 3 método GET status 404" src="https://github.com/user-attachments/assets/cc7c2e44-7ab6-4d6b-9283-fdc7ae777a15" /> <br>  
 
-<img width="1290" height="606" alt="Evidência 4 método GET status 418" src="https://github.com/user-attachments/assets/f7ba6e09-444e-49b9-bc89-a3d4714a9f20" />  
+<img width="1290" height="606" alt="Evidência 4 método GET status 418" src="https://github.com/user-attachments/assets/f7ba6e09-444e-49b9-bc89-a3d4714a9f20" /> <br>  
 
-<img width="1180" height="542" alt="Evidência 5 método GET status 500" src="https://github.com/user-attachments/assets/31d1eac9-f3b1-4b9a-9d9b-7253854187fe" />  
+<img width="1180" height="542" alt="Evidência 5 método GET status 500" src="https://github.com/user-attachments/assets/31d1eac9-f3b1-4b9a-9d9b-7253854187fe" /> <br>   
 
-<img width="1133" height="522" alt="Evidência 6 método GET status 503" src="https://github.com/user-attachments/assets/909ca78f-dc5f-42ed-8bd6-5acfebf67295" />  
+<img width="1133" height="522" alt="Evidência 6 método GET status 503" src="https://github.com/user-attachments/assets/909ca78f-dc5f-42ed-8bd6-5acfebf67295" /> <br>   
 
-<img width="996" height="552" alt="Evidência 7 método GET status 304" src="https://github.com/user-attachments/assets/22adf90f-36fe-4f3c-9f4d-abfdbc57f772" />  
+<img width="996" height="552" alt="Evidência 7 método GET status 304" src="https://github.com/user-attachments/assets/22adf90f-36fe-4f3c-9f4d-abfdbc57f772" /> <br>  
 
 | # | Método | URL | Status-line | `Content-Length` / `Transfer-Encoding` | Body presente? |
 |---|--------|-----|-------------|-----------------------------------------|----------------|
