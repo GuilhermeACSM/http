@@ -280,9 +280,9 @@ Isso é **obrigatório pela especificação** apenas para o status `304 Not Modi
 ## Atividade 5 — Identificação de cabeçalhos (`http://httpbin.org/response-headers?...` + `/gzip`)
 
 **Captura de tela (Inspectors → Headers):**
-<img width="1914" height="1074" alt="response-headers" src="https://github.com/user-attachments/assets/353e26d3-576e-48dd-af94-1f1a29dcdfa2" />
+<img width="1914" height="1074" alt="response-headers" src="https://github.com/user-attachments/assets/353e26d3-576e-48dd-af94-1f1a29dcdfa2" /><br>
 
-<img width="1919" height="1076" alt="gzip" src="https://github.com/user-attachments/assets/ca0c66a9-279c-4811-9e29-f28c2a6ce65d" />
+<img width="1919" height="1076" alt="gzip" src="https://github.com/user-attachments/assets/ca0c66a9-279c-4811-9e29-f28c2a6ce65d" /><br>
 
 | Cabeçalho                    | Req/Resp | Valor capturado | Função em uma frase |
 |------------------------------|----------|------------------|----------------------|
