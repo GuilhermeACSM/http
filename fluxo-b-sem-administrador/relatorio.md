@@ -410,52 +410,56 @@ O papel do HSTS (HTTP Strict Transport Security) é proteger os usuários contra
 ### Pergunta 8.1
 > O servidor pode detectar que o `User-Agent` foi forjado? Discuta.
 
-**Resposta:** [...]
+**Resposta:** Não, o servidor não tem como detectar de forma determinística que o cabeçalho `User-Agent` foi forjado apenas analisando esse campo. O protocolo HTTP é baseado em texto e confia cegamente nas informações declaradas pelo cliente. O servidor processa os cabeçalhos exatamente como os recebe. Embora um servidor mais avançado possa usar heurísticas (como analisar a assinatura de pacotes TCP/IP) para suspeitar que a requisição não veio de um navegador comum, ele não pode provar que a string do `User-Agent` foi alterada no meio do caminho sem o uso de mecanismos adicionais de integridade e criptografia que validem a mensagem do cliente de ponta a ponta.
 
 ### Pergunta 8.2
 > Após editar a status-line de `200 OK` para `404 Not Found`, o que o navegador exibe? Comente o papel do proxy como MITM.
 
-**Captura de tela:** `evidencias/atv8_status_edit.png`
+**Captura de tela:**
+<img width="961" height="1033" alt="image" src="https://github.com/user-attachments/assets/4b36f984-e331-4474-8d77-1f2de7dc018b" /><br>
 
-**Resposta:** [...]
+**Resposta:** O navegador exibe uma página de erro (ou mensagem do próprio navegador) indicando que a página não foi encontrada (404 Not Found). 
+A manipulação afetou apenas a visualização local porque o servidor remoto (`httpbin.org`) processou a requisição e retornou, de fato, a resposta de sucesso original (`200 OK`). O servidor não tem ciência da falsificação. Isso demonstra o poder do proxy como um atacante *Man-in-the-Middle* (MitM). Ao interceptar a comunicação antes de ela chegar ao destino final (o navegador), o proxy consegue alterar completamente a "realidade" percebida pelo cliente. O cliente recebe e confia na resposta adulterada pelo proxy, provando que um MitM não apenas espiona passivamente, mas tem controle ativo bidirecional sobre o fluxo de dados em texto claro.
 
 ### Pergunta 8.3
 > Confirme que todos os breakpoints foram desabilitados.
 
-- [ ] Breakpoints desabilitados ao final (Shift+F11)
+- [ X ] Breakpoints desabilitados ao final (Shift+F11)
 
 ---
 
 ## Atividade 9 — Redirecionamento HTTP → HTTPS
 
-**Captura de tela:** `evidencias/atv9_redir.png`
+**Captura de tela:** 
+<img width="960" height="1022" alt="image" src="https://github.com/user-attachments/assets/2b074b19-5a34-4d5b-bf41-3c92455604be" />
+
 
 **Status-line da resposta a `http://httpbin.org/redirect-to?status_code=301&url=https%3A%2F%2Fhttpbin.org%2Fget`:**
 
 ```http
-[colar aqui, ex: HTTP/1.1 301 Moved Permanently]
+HTTP/1.1 301 MOVED PERMANENTLY
 ```
 
 **Cabeçalho `Location` da resposta:**
 
 ```
-Location: [colar aqui]
+Location: [https://httpbin.org/get](https://httpbin.org/get)
 ```
 
 ### Pergunta 9.1
 > Código de status e cabeçalho que direcionaram o navegador para `https://`.
 
-**Resposta:** [...]
+**Resposta:** O código de status retornado pelo servidor foi o 301 MOVED PERMANENTLY. O cabeçalho responsável por direcionar o navegador para a versão segura da página foi o Location (especificamente entregando a URL de destino [https://httpbin.org/get](https://httpbin.org/get))
 
 ### Pergunta 9.2
 > Além do redirecionamento 3xx, qual outro mecanismo/cabeçalho faz o navegador passar a forçar HTTPS em visitas futuras? Cite a RFC.
 
-**Resposta:** [...]
+**Resposta:** O outro mecanismo é o HSTS (HTTP Strict Transport Security). Esse mecanismo é ativado através do cabeçalho de resposta Strict-Transport-Security, que é formalmente definido pela RFC 6797. Uma vez que o navegador recebe e armazena esse cabeçalho (através de uma conexão HTTPS válida), ele memoriza que o domínio exige segurança. A partir desse momento, o próprio navegador força a conversão de qualquer URL http:// para https:// internamente, antes mesmo de enviar a requisição para a rede.
 
 ### Pergunta 9.3
 > Se esse cabeçalho fosse enviado por uma resposta servida via HTTP puro, o navegador deveria obedecer? Justifique com base na RFC.
 
-**Resposta:** [...]
+**Resposta:** Não, o navegador não deve obedecer. De acordo com as diretrizes de segurança da RFC 6797, os agentes de usuário (navegadores) são explicitamente instruídos a ignorar o cabeçalho Strict-Transport-Security se ele for recebido por meio de uma conexão HTTP não criptografada. A justificativa para isso é que, em um canal inseguro (texto claro), qualquer atacante posicionado como Man-in-the-Middle poderia facilmente forjar, injetar ou remover esse cabeçalho de forma maliciosa.
 
 ---
 
