@@ -395,13 +395,14 @@ O papel do HSTS (HTTP Strict Transport Security) é proteger os usuários contra
 
 ## Atividade 8 — Manipulação com breakpoints
 
-**Captura de tela da edição do User-Agent:** `evidencias/atv8_ua_edit.png`
+**Captura de tela da edição do User-Agent:**
+<img width="1169" height="587" alt="image" src="https://github.com/user-attachments/assets/52282bb2-64ff-44b4-8fe8-531e3f992bcc" />
 
 **JSON de resposta após edição:**
 
 ```json
 {
-  "user-agent": "[valor forjado]"
+  "user-agent": "LaboratorioRedes/1.0 (Guilherme)"
 }
 ```
 
