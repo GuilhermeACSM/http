@@ -229,32 +229,45 @@ POST http://httpbin.org/post HTTP/1.1
 
 ## Atividade 4 — Catálogo de status codes (`http://httpbin.org/...`)
 
-**Captura de tela (lista do Fiddler com as 7 sessões):** `evidencias/atv4_lista.png`
+**Captura de tela (lista do Fiddler com as 7 sessões):** 
+<img width="1919" height="606" alt="Evidência 1 método GET status 200" src="https://github.com/user-attachments/assets/491086e8-d05a-4d16-9180-1d378434738a" />
+<img width="1346" height="567" alt="Evidência 2 método GET status 301" src="https://github.com/user-attachments/assets/281e6798-5e38-4054-86ab-863eecf0882a" />
+<img width="1170" height="503" alt="Evidência 3 método GET status 404" src="https://github.com/user-attachments/assets/cc7c2e44-7ab6-4d6b-9283-fdc7ae777a15" />
+<img width="1290" height="606" alt="Evidência 4 método GET status 418" src="https://github.com/user-attachments/assets/f7ba6e09-444e-49b9-bc89-a3d4714a9f20" />
+<img width="1180" height="542" alt="Evidência 5 método GET status 500" src="https://github.com/user-attachments/assets/31d1eac9-f3b1-4b9a-9d9b-7253854187fe" />
+<img width="1133" height="522" alt="Evidência 6 método GET status 503" src="https://github.com/user-attachments/assets/909ca78f-dc5f-42ed-8bd6-5acfebf67295" />
+<img width="996" height="552" alt="Evidência 7 método GET status 304" src="https://github.com/user-attachments/assets/22adf90f-36fe-4f3c-9f4d-abfdbc57f772" />
 
 | # | Método | URL | Status-line | `Content-Length` / `Transfer-Encoding` | Body presente? |
 |---|--------|-----|-------------|-----------------------------------------|----------------|
-| 1 | GET    | `http://httpbin.org/status/200` | [...] | [...] | [sim/não] |
-| 2 | GET    | `http://httpbin.org/redirect-to?status_code=301&url=/get` | [...] | [...] | [sim/não] |
-| 3 | GET    | `http://httpbin.org/status/404` | [...] | [...] | [sim/não] |
-| 4 | GET    | `http://httpbin.org/status/418` | [...] | [...] | [sim/não] |
-| 5 | GET    | `http://httpbin.org/status/500` | [...] | [...] | [sim/não] |
-| 6 | GET    | `http://httpbin.org/status/503` | [...] | [...] | [sim/não] |
-| 7 | GET    | `http://example.com/` com `If-Modified-Since` | [...] | [...] | [sim/não] |
+| 1 | GET    | `http://httpbin.org/status/200` | HTTP/1.1 200 OK | Content-Length: 0 | não |
+| 2 | GET    | `http://httpbin.org/redirect-to?status_code=301&url=/get` | HTTP/1.1 301 MOVED PERMANENTLY | Content-Length: 0 | não |
+| 3 | GET    | `http://httpbin.org/status/404` | HTTP/1.1 404 NOT FOUND | Content-Length: 0 | não |
+| 4 | GET    | `http://httpbin.org/status/418` | HTTP/1.1 418 I'M A TEAPOT | Content-Length: 135 | sim |
+| 5 | GET    | `http://httpbin.org/status/500` | HTTP/1.1 500 INTERNAL SERVER ERROR | Content-Length: 0 | não |
+| 6 | GET    | `http://httpbin.org/status/503` | HTTP/1.1 503 SERVICE UNAVAILABLE | Content-Length: 0 | não |
+| 7 | GET    | `http://example.com/` com `If-Modified-Since` | HTTP/1.1 304 Not Modified | Ausente | não |
 
 ### Pergunta 4.1
 > Em qual dos status o corpo está ausente/tamanho zero? Isso é obrigatório pela especificação ou depende do servidor?
 
-**Resposta:** [...]
+**Resposta:** O corpo está ausente nos status `200`, `301`, `404`, `500`, `503` e `304`. 
+Isso é **obrigatório pela especificação** apenas para o status `304 Not Modified` onde é proibido enviar corpo. Para os demais status citados (`200`, `301`, `404`, `500`, `503`), a especificação permite o envio de um corpo. Portanto, nesses casos, o tamanho zero **depende da implementação do servidor**.
 
 ### Pergunta 4.2
 > No `301`, qual cabeçalho da resposta informa para onde ir? O que aconteceria se estivesse ausente?
 
-**Resposta:** [...]
+**Resposta:** O cabeçalho responsável por informar o novo destino é o **`Location`**. Se ele estivesse ausente, o cliente HTTP (como o navegador) não saberia para qual URL seguir. O redirecionamento automático falharia e o usuário ficaria "preso" na resposta do 301 sem chegar ao destino final pretendido.
 
 ### Pergunta 4.3
 > Diferença semântica entre `200`, `304` e `404` do ponto de vista do cache do navegador.
 
-**Resposta:** [...]
+**Resposta:** 
+* **200 (OK):** O servidor ignora o cache antigo (ou o cache não existia) e envia o recurso completo e atualizado, que o navegador pode salvar no cache para usos futuros.
+
+* **304 (Not Modified):** O servidor valida que o recurso não sofreu alterações desde o último acesso. O navegador economiza rede ao não baixar o corpo da resposta e apenas carrega a versão que já estava guardada no seu cache local.
+
+* **404 (NOT FOUND):** O servidor avisa que o recurso não existe na URL solicitada. O navegador entende que a busca falhou e não utiliza o cache para carregar a página (embora possa armazenar em cache o próprio "erro 404" por um curto período para evitar novas requisições inúteis ao mesmo link quebrado).
 
 ---
 
