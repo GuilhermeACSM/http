@@ -231,11 +231,17 @@ POST http://httpbin.org/post HTTP/1.1
 
 **Captura de tela (lista do Fiddler com as 7 sessões):** 
 <img width="1919" height="606" alt="Evidência 1 método GET status 200" src="https://github.com/user-attachments/assets/491086e8-d05a-4d16-9180-1d378434738a" />
+
 <img width="1346" height="567" alt="Evidência 2 método GET status 301" src="https://github.com/user-attachments/assets/281e6798-5e38-4054-86ab-863eecf0882a" />
+
 <img width="1170" height="503" alt="Evidência 3 método GET status 404" src="https://github.com/user-attachments/assets/cc7c2e44-7ab6-4d6b-9283-fdc7ae777a15" />
+
 <img width="1290" height="606" alt="Evidência 4 método GET status 418" src="https://github.com/user-attachments/assets/f7ba6e09-444e-49b9-bc89-a3d4714a9f20" />
+
 <img width="1180" height="542" alt="Evidência 5 método GET status 500" src="https://github.com/user-attachments/assets/31d1eac9-f3b1-4b9a-9d9b-7253854187fe" />
+
 <img width="1133" height="522" alt="Evidência 6 método GET status 503" src="https://github.com/user-attachments/assets/909ca78f-dc5f-42ed-8bd6-5acfebf67295" />
+
 <img width="996" height="552" alt="Evidência 7 método GET status 304" src="https://github.com/user-attachments/assets/22adf90f-36fe-4f3c-9f4d-abfdbc57f772" />
 
 | # | Método | URL | Status-line | `Content-Length` / `Transfer-Encoding` | Body presente? |
@@ -273,36 +279,40 @@ Isso é **obrigatório pela especificação** apenas para o status `304 Not Modi
 
 ## Atividade 5 — Identificação de cabeçalhos (`http://httpbin.org/response-headers?...` + `/gzip`)
 
-**Captura de tela (Inspectors → Headers):** `evidencias/atv5_headers.png`
+**Captura de tela (Inspectors → Headers):**
+<img width="1914" height="1074" alt="response-headers" src="https://github.com/user-attachments/assets/353e26d3-576e-48dd-af94-1f1a29dcdfa2" />
+
+<img width="1919" height="1076" alt="gzip" src="https://github.com/user-attachments/assets/ca0c66a9-279c-4811-9e29-f28c2a6ce65d" />
 
 | Cabeçalho                    | Req/Resp | Valor capturado | Função em uma frase |
 |------------------------------|----------|------------------|----------------------|
-| `Host`                       | [...]    | [...]            | [...]                |
-| `User-Agent`                 | [...]    | [...]            | [...]                |
-| `Accept`                     | [...]    | [...]            | [...]                |
-| `Accept-Encoding`            | [...]    | [...]            | [...]                |
-| `Cookie`                     | [...]    | [...]            | [...]                |
-| `Server`                     | [...]    | [...]            | [...]                |
-| `Content-Type`               | [...]    | [...]            | [...]                |
-| `Content-Encoding`           | [...]    | [...]            | [...]                |
-| `Set-Cookie`                 | [...]    | [...]            | [...]                |
-| `Cache-Control`              | [...]    | [...]            | [...]                |
-| `Strict-Transport-Security`  | [...]    | [...]            | [...]                |
+| `Host`                       | Req    | httpbin.org        | Especifica o domínio do servidor alvo da requisição. |
+| `User-Agent`                 | Req    | Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:150.0) Gecko/20100101 Firefox/150.0 | Identifica o software cliente e o sistema operacional fazendo a requisição. |
+| `Accept`                     | Req    | Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8 | Informa ao servidor os tipos de mídia (formatos) que o cliente consegue entender. |
+| `Accept-Encoding`            | Req    | gzip, deflate      | Indica quais algoritmos de compressão o cliente suporta para a resposta. |
+| `Cookie`                     | Req    | teste=1            | Envia de volta ao servidor dados de estado previamente armazenados pelo cliente. |
+| `Server`                     | Resp   | gunicorn/19.9.0    | Identifica o software do servidor web que gerou a resposta. |
+| `Content-Type`               | Resp   | application/json   | Indica o tipo de mídia (formato) do corpo da mensagem que está sendo enviada. |
+| `Content-Encoding`           | Resp   | gzip               | Indica qual algoritmo de compressão foi aplicado ao corpo da resposta. |
+| `Set-Cookie`                 | Resp   | teste=1            | Instrução do servidor para o cliente armazenar um cookie em sua máquina. |
+| `Cache-Control`              | Resp   | max-age=3600       | Define diretivas e regras sobre como a resposta deve ser armazenada em cache. |
+| `Strict-Transport-Security`  | Resp   | Ausente            | Força o cliente a se comunicar com o servidor apenas via conexão segura (HTTPS). |
 
 ### Pergunta 5.1
 > `Content-Encoding: gzip`/`br` apareceu? Compare `Content-Length`, quando presente, com o conteúdo visível. O que explica a diferença?
 
-**Resposta:** [...]
+**Resposta:** Sim, na requisição para o endpoint `/gzip`, o servidor retornou `Content-Encoding: gzip`. O valor do `Content-Length` (tamanho em bytes transmitido pela rede) é menor do que o tamanho do texto visível na aba **TextView**. Isso ocorre porque o `Content-Length` representa o tamanho do arquivo **compactado** que trafegou na rede.
 
 ### Pergunta 5.2
 > Cliente envia `Accept: application/json` mas o recurso só existe em `text/html`. Qual status code esperar?
 
-**Resposta:** [...]
+**Resposta:** Segundo a especificação HTTP, se o servidor não for capaz de fornecer uma resposta com as características de formato aceitas pelo cliente (declaradas no cabeçalho `Accept`), ele deve retornar o código de status **`406 Not Acceptable`**. Isso indica ao cliente que o recurso existe, mas não no formato que o cliente declarou conseguir processar.
 
 ### Pergunta 5.3
 > `Strict-Transport-Security` apareceu nas respostas HTTP? Por que esse cabeçalho está ausente neste fluxo? (Consulte a RFC 6797.) Qual é seu papel contra downgrades para HTTP puro?
 
-**Resposta:** [...]
+**Resposta:** Não, o cabeçalho não apareceu. Ele está ausente porque todas as requisições destes testes foram feitas via protocolo **HTTP puro (não criptografado)** no endereço `http://httpbin.org`. Segundo a RFC 6797, os servidores não devem enviar o cabeçalho HSTS em conexões HTTP inseguras (e se enviarem, o cliente deve ignorar, pois a rede não é confiável). 
+O papel do HSTS (HTTP Strict Transport Security) é proteger os usuários contra ataques de *downgrade* (como o SSL Stripping). Uma vez que o cliente recebe esse cabeçalho através de uma conexão HTTPS válida, ele memoriza que aquele domínio específico só pode ser acessado via HTTPS. A partir daí, qualquer tentativa futura de acessar o site via `http://` será bloqueada ou convertida automaticamente para `https://` pelo próprio navegador de forma interna, sem nem deixar a requisição insegura sair para a rede.
 
 ---
 
